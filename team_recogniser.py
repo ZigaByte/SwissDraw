@@ -5,7 +5,7 @@ import pandas
 # Returns a pair with:
 # - 2D incidence matrix for matches in the list
 # - vector with difference in results
-def generateIncidenceMatrix(file_name):
+def generateValuesFromFile(file_name):
     data = pandas.read_excel(file_name, "swiss_matches", None)
     matches = data.to_dict("index")
 
@@ -16,9 +16,9 @@ def generateIncidenceMatrix(file_name):
     A = [] 
     d = []
 
-    print("Team Dict.:")
-    print(team_index)
-    print()
+    #print("Team Dict.:")
+    #print(team_index)
+    #print()
     
     for match in matches:
         team1 = matches[match][0]
@@ -46,6 +46,7 @@ def generateIncidenceMatrix(file_name):
         print(a)
         print()
         '''
+        
     return (A, d)
     
     
@@ -61,6 +62,3 @@ def getTeamDictionary(file_name):
         i += 1
 
     return teams
-
-#print(getTeamDictionary("swiss_draw.xlsx"))
-print(generateIncidenceMatrix("swiss_draw.xlsx"))
