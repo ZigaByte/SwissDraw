@@ -15,10 +15,6 @@ def generateValuesFromFile(file_name):
     # What we fill in
     A = [] 
     d = []
-
-    #print("Team Dict.:")
-    #print(team_index)
-    #print()
     
     for match in matches:
         team1 = matches[match][0]
@@ -38,15 +34,7 @@ def generateValuesFromFile(file_name):
         A.append(a)
 
         d.append(matches[match][2] - matches[match][3])
-
-        '''
-        print("Match %d" % match)
-        print(team1)
-        print(team2)
-        print(a)
-        print()
-        '''
-        
+ 
     return (A, d)
     
     
