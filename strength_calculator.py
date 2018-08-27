@@ -50,15 +50,22 @@ def divideRow(M, i, f):
 def addRowMultiple(M, i, j, f):
     for k in range(len(M[0])):
         M[i][k] += M[j][k] * f;
+        if(abs(M[i][k]) < 0.0001): # If that close to 0, get it to 0
+            M[i][k] = 0
     return M
 
 # Perform Gauss on the matrix
 def gauss(B):
     for c in range(len(B[0]) - 1):
+        #print("Step ", c)
+        #printMatrix(B)
         B = divideRow(B, c, B[c][c])
+        #printMatrix(B)
+
         for r in range(c+1, len(B)):
             if(B[c][c] != 0):
                 B = addRowMultiple(B, r, c, -B[r][c] / B[c][c])
+                #printMatrix(B)
 
     for c in range(1, len(B[0]) - 2):
         for r in range(c):
@@ -78,14 +85,34 @@ def calculateStrength(M, d):
     # Perform Gauss
     C = gauss(B)
 
+    #   printMatrix(C)
+
+    for i in range(len(C)):
+        for j in range(len(C[i])-1):
+            C[i][j] = round(C[i][j])
+
+    printMatrix(C)
+
     # Read the strngths from the last Gauss matrix
-    s = []
+    s = [0.0] * len(C)
     minS = 10000
     for r in range(len(C)):
-        s.append(C[r][len(C[r]) - 1])
+        s[r] = C[r][len(C[r]) - 1]
+
+        # Test for new scoring>
+        '''
+        for i in range(len(C[r]) - 1):
+            if(C[r][i] == 1.0):
+                s[i] = C[r][len(C[r]) - 1] / 2
+            elif(C[r][i] == -1.0):
+                s[i] = -C[r][len(C[r]) - 1] / 2
+        '''
+
         minS = min(minS, s[r])
 
+    return s
+'''
     for r in range(len(C)):
         s[r] -= minS
+'''
 
-    return s

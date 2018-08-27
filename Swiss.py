@@ -25,7 +25,7 @@ from team_recogniser import getTeamDictionary
 teams = getTeamDictionary("swiss_draw.xlsx")
 
 #print(A)
-#print(d)
+print(d)
 print(teams)
 
 s = calculateStrength(A, d)
@@ -37,11 +37,11 @@ print(s)
 leaderboard = []
 for i in range(len(teams)):
     leaderboard.append(i)
-print(leaderboard)
+#print(leaderboard)
 
 # Sort in the same way the leaderboard and the copy of s
 cs = s.copy()
-print(cs)
+#print(cs)
 
 for i in range(len(cs)):
     for j in range(1, len(cs)-i):
@@ -55,8 +55,8 @@ for i in range(len(cs)):
             leaderboard[j] = leaderboard[j-1]
             leaderboard[j-1] = t
 
-print(cs)
-print(leaderboard)
+#print(cs)
+#print(leaderboard)
 
 for i in range(len(leaderboard)):
     print(str(i+1) + ". place: " + getTeamName(teams, leaderboard[i]) + "\t " + str(s[leaderboard[i]]) + " points")
@@ -68,12 +68,10 @@ def allTaken(taken):
     return True
 
 # Generate new matchups with A and leaderboad
-pairs = [] # append pairs to this
 def generatePairs(currentI, taken):    
     if(allTaken(taken)):
         return True
 
-    print(taken, currentI)
     if(taken[currentI]):
         return generatePairs(currentI + 1, taken)
 
@@ -82,25 +80,19 @@ def generatePairs(currentI, taken):
         other = leaderboard[otherI]
         current = leaderboard[currentI]
 
-        print("Checking pair", currentI, otherI, "which are", current, other)
-
-
         # Check if other is available
         if(taken[otherI]):
-            print("taken")
             continue
 
         # Check if matched before
         haveMatchedBefore = False
         for match in A:
             if(match[current] != 0 and match[other] != 0):
-                print("have matched")
                 haveMatchedBefore = True
         if(haveMatchedBefore):
             continue
 
         # If all other things passed, add the pair
-        print("Adding ", currentI, otherI, " Which are", leaderboard[currentI], leaderboard[otherI])
         pairs.append((currentI, otherI))
         taken[currentI] = True
         taken[otherI] = True
@@ -110,7 +102,6 @@ def generatePairs(currentI, taken):
         if(result):
             return True
         else:
-            print("Let's undo", currentI, otherI, " Which are", leaderboard[currentI], leaderboard[otherI])
             # Undo last and continue
             pairs.pop(len(pairs) - 1)
             taken[currentI] = False
@@ -118,11 +109,12 @@ def generatePairs(currentI, taken):
             continue
 
     
+pairs = [] # append pairs to this
 taken = [False] * len(leaderboard)
 
 generatePairs(0, taken)
-print(pairs)
-print(taken)
+#print(pairs)
 
-print(A)
-
+print("Next matches:")
+for (t1, t2) in pairs:
+    print(getTeamName(teams, leaderboard[t1]),"\t", getTeamName(teams, leaderboard[t2]))

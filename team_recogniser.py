@@ -17,8 +17,8 @@ def generateValuesFromFile(file_name):
     d = []
     
     for match in matches:
-        team1 = matches[match][0]
-        team2 = matches[match][1]
+        team1 = matches[match][0].strip()
+        team2 = matches[match][1].strip()
 
         # Fill the row of this match
         a = []
@@ -46,7 +46,7 @@ def getTeamDictionary(file_name):
     teams = dict()
     i = 0
     for team in team_list[0]:
-        teams[team] = i
+        teams[team.strip()] = i
         i += 1
 
     return teams
