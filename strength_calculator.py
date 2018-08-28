@@ -78,6 +78,12 @@ def printMatrix(M):
     for b in M:
         print(b)
 
+def allFixed(fixed):
+    for f in fixed:
+        if(not f):
+            return False
+    return True
+
 def calculateStrength(M, d):
     # Get initial matrix for Gauss
     B = computeB(M, d)
@@ -85,13 +91,56 @@ def calculateStrength(M, d):
     # Perform Gauss
     C = gauss(B)
 
-    #   printMatrix(C)
-
+    # Round the values for fun (there should only be -1s, 0s and 1s anyway), except the last column
     for i in range(len(C)):
         for j in range(len(C[i])-1):
             C[i][j] = round(C[i][j])
 
     printMatrix(C)
+
+    # Get disjunct strength values and minimise the sum of them
+    fixed = [False] * (len(C[0]) - 1)
+    print(fixed)
+
+    while(not allFixed(fixed)):
+        current = 0
+        toFix = set()
+        # Get one that is not fixed
+        for i in range(len(fixed)):
+            if(not fixed[i]):
+                current = i
+                toFix.add(current)
+                break
+            
+        # Find all connected teams and add to toFix list
+        while(True):
+            toAdd = set()
+            for c in toFix:
+                for i in range(len(C[c]) - 1):
+                    if(C[c][i] != 0 and i != c and not(i in toFix)):
+                        toAdd.add(i)
+                for i in range(len(C)): 
+                    if(C[i][c] != 0 and i != c and not(i in toFix)):
+                        toAdd.add(i)
+            #print(toFix, toAdd)
+            toFix = toFix.union(toAdd)
+            if(len(toAdd) is 0):
+                break
+            
+
+
+        sumStrength = 0
+        for f in toFix:
+            fixed[f] = True
+            sumStrength += C[f][len(C[f])-1]
+
+        for f in toFix:
+            C[f][len(C[f])-1] -= sumStrength / len(toFix)
+            
+        print(toFix, sumStrength)
+        
+    printMatrix(C)
+
 
     # Read the strngths from the last Gauss matrix
     s = [0.0] * len(C)
