@@ -57,15 +57,11 @@ def addRowMultiple(M, i, j, f):
 # Perform Gauss on the matrix
 def gauss(B):
     for c in range(len(B[0]) - 1):
-        #print("Step ", c)
-        #printMatrix(B)
         B = divideRow(B, c, B[c][c])
-        #printMatrix(B)
 
         for r in range(c+1, len(B)):
             if(B[c][c] != 0):
                 B = addRowMultiple(B, r, c, -B[r][c] / B[c][c])
-                #printMatrix(B)
 
     for c in range(1, len(B[0]) - 2):
         for r in range(c):
@@ -96,11 +92,8 @@ def calculateStrength(M, d):
         for j in range(len(C[i])-1):
             C[i][j] = round(C[i][j])
 
-    printMatrix(C)
-
     # Get disjunct strength values and minimise the sum of them
     fixed = [False] * (len(C[0]) - 1)
-    print(fixed)
 
     while(not allFixed(fixed)):
         current = 0
@@ -122,13 +115,10 @@ def calculateStrength(M, d):
                 for i in range(len(C)): 
                     if(C[i][c] != 0 and i != c and not(i in toFix)):
                         toAdd.add(i)
-            #print(toFix, toAdd)
             toFix = toFix.union(toAdd)
             if(len(toAdd) is 0):
                 break
-            
-
-
+        
         sumStrength = 0
         for f in toFix:
             fixed[f] = True
@@ -136,32 +126,12 @@ def calculateStrength(M, d):
 
         for f in toFix:
             C[f][len(C[f])-1] -= sumStrength / len(toFix)
-            
-        print(toFix, sumStrength)
-        
-    printMatrix(C)
-
-
+                    
     # Read the strngths from the last Gauss matrix
     s = [0.0] * len(C)
-    minS = 10000
     for r in range(len(C)):
         s[r] = C[r][len(C[r]) - 1]
-
-        # Test for new scoring>
-        '''
-        for i in range(len(C[r]) - 1):
-            if(C[r][i] == 1.0):
-                s[i] = C[r][len(C[r]) - 1] / 2
-            elif(C[r][i] == -1.0):
-                s[i] = -C[r][len(C[r]) - 1] / 2
-        '''
-
-        minS = min(minS, s[r])
-
+        
     return s
-'''
-    for r in range(len(C)):
-        s[r] -= minS
-'''
+
 

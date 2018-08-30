@@ -5,13 +5,26 @@ def allTaken(taken):
             return False
     return True
 
+# Function that calls the recursive procedure and sets things up
+# If ignoreTop is specified, ignore the top ignoreTop teams when chosing the new matchups
+# ignoreTop should be even
+def generatePairs(leaderboard, A, ignoreTop = 0):
+    taken = [False] * len(leaderboard)
+    # Make sure the first few are ignroed. Have them already be taken
+    for i in range(ignoreTop):
+        taken[i] = True
+    
+    pairs = []
+    generatePairsRec(leaderboard, A, 0, taken, pairs)
+    return pairs
+
 # Generate new matchups with A and leaderboad
-def generatePairs(leaderboard, A, currentI, taken, pairs):    
+def generatePairsRec(leaderboard, A, currentI, taken, pairs):    
     if(allTaken(taken)):
         return True
 
     if(taken[currentI]):
-        return generatePairs(leaderboard, A, currentI + 1, taken, pairs)
+        return generatePairsRec(leaderboard, A, currentI + 1, taken, pairs)
 
     # Look for another team
     for otherI in range(currentI + 1, len(leaderboard)):
@@ -36,7 +49,7 @@ def generatePairs(leaderboard, A, currentI, taken, pairs):
         taken[otherI] = True
 
         # Do recursion and check if it worked
-        result = generatePairs(leaderboard, A, currentI+1, taken, pairs)
+        result = generatePairsRec(leaderboard, A, currentI+1, taken, pairs)
         if(result):
             return True
         else:

@@ -36,7 +36,13 @@ def generateValuesFromFile(file_name):
         d.append(matches[match][2] - matches[match][3])
  
     return (A, d)
-    
+
+# Get team name in reverse way
+def getTeamName(t, i):
+    for tt in t:
+        if(t[tt] == i):
+            return tt
+
     
 # Returns a dictionary of teams. Format: {'Team Name': index, ...}
 def getTeamDictionary(file_name):
