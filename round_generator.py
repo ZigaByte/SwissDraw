@@ -19,6 +19,7 @@ def generatePairs(leaderboard, A, ignoreTop = 0):
     return pairs
 
 # Generate new matchups with A and leaderboad
+# Returns true if successful. The pairs list provided is filled with pairs of indexes.
 def generatePairsRec(leaderboard, A, currentI, taken, pairs):    
     if(allTaken(taken)):
         return True

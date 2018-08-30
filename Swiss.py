@@ -7,8 +7,11 @@ from team_recogniser import getTeamName
 
 from round_generator import generatePairs
 
-(A, d) = generateValuesFromFile("swiss_draw.xlsx")
-teams = getTeamDictionary("swiss_draw.xlsx")
+#file = "swiss_draw.xlsx"
+file = "sul.xlsx"
+
+(A, d) = generateValuesFromFile(file)
+teams = getTeamDictionary(file)
 
 s = calculateStrength(A, d)
 
@@ -17,9 +20,9 @@ leaderboard = []
 for i in range(len(teams)):
     leaderboard.append(i)
 
+# Gerenate leaderboard, sorted indexes of teams
 # Sort in the same way the leaderboard and the copy of s
 cs = s.copy()
-
 for i in range(len(cs)):
     for j in range(1, len(cs)-i):
         if(cs[j] > cs[j - 1]):
@@ -35,7 +38,7 @@ for i in range(len(cs)):
 for i in range(len(leaderboard)):
     print(str(i+1) + ". place: " + getTeamName(teams, leaderboard[i]) + "\t " + str(s[leaderboard[i]]) + " points")
 
-pairs = generatePairs(leaderboard, A)
+pairs = generatePairs(leaderboard, A, 2)
 
 print("Next matches:")
 for (t1, t2) in pairs:
