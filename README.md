@@ -20,7 +20,7 @@ We can then generalize this into matrix form:
 
 where ***d*** is the vector of the difference in goals scored in each match, ***s*** is the vector containing the variables (teams's strengths), ***e*** is the error vector and ***A*** is the incidence matrix of the matchups, where each row represents one match and the value in column ***j*** is **1** and in column ***k*** is **-1**, all other are **0**.
 
-Our aim is to select the values ***s*** so that the error will be the smallest. We use [!ordinary least squares using projection]{https://en.wikipedia.org/wiki/Ordinary_least_squares#Projection} to find it. The goal is therefore to:
+Our aim is to select the values ***s*** so that the error will be the smallest. We use [ordinary least squares using projection](https://en.wikipedia.org/wiki/Ordinary_least_squares#Projection) to find it. The goal is therefore to:
 
 <p align="center">
   <img src="https://imgur.com/iGg50r2.png"><!--min \left \|d -As  \right \|^{2}-->
