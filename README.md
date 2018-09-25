@@ -28,7 +28,9 @@ Our aim is to select the values ***s*** so that the error will be the smallest. 
 
 ## Instructions
 
+Python 3.3 or better required (tested on 3.7 - recommended).
+
 You need to have pandas package installed to read from Excel files. Use this command: python3 -m pip install --upgrade pandas
 You need to have xlrd package installed to read from Excel files. Use this command: python3 -m pip install --upgrade xlrd
 
-More instructions coming soon ...
+Use the excel file for data input. Write team names in the teams tab and match scores in the other tab. Run the Swiss.py (with the right excel file name). Strength scores will be calculated and displayed. New matches will be generated.
