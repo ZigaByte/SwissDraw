@@ -47,7 +47,6 @@ class Swiss:
 	# Normalize the scores of teams. (sum(Abs[s[i] for i in group])) has to be 0
 	def normalizeScores(self, A, s):
 		groups = self.findGroups(A, s)
-		print(groups)
 		
 		for group in groups:
 			scoreSum = 0
@@ -71,14 +70,12 @@ class Swiss:
 		s = [0] * self.n
 		delta = 100
 		while delta > 1e-7:
-			ns = self.descentStep(self.A, s.copy(), self.d, alpha\)
+			ns = self.descentStep(self.A, s.copy(), self.d, alpha)
 			delta = max([abs(nsi - si) for si, nsi in zip(s, ns)])
 			s = ns
 			
 		s = self.normalizeScores(self.A, s)
-		print(s)
 		s = self.roundScores(s)
-		print(s)
 		
 		return s
 
