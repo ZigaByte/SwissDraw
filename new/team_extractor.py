@@ -1,25 +1,37 @@
-from swiss import Swiss	
+from swiss import Swiss
 from reader import generate
 from reader import getTeamName
 from round_generator import generatePairs
 import csv
 
-matchesFile = "data/games_euf_2019_open.csv"
+matchesFile = "wul/WUL_1.csv"
+
 
 def readMatches(matchesFile):
-	f = open(matchesFile, "rt", encoding="utf-8")
-	reader = csv.reader(f, delimiter=",")
-	next(reader)
+    f = open(matchesFile, "rt", encoding="utf-8")
+    reader = csv.reader(f, delimiter=",")
+    next(reader)
 
-	teams = set()
+    teams = []
 
-	for line in reader:
-		teams.add(line[3])
-		teams.add(line[4])
-	print(teams)
-	for t in teams:
-		print(t)
+    for line in reader:
+        team1 = line[0]
+        if team1 not in teams:
+            teams.append(team1)
+        team2 = line[1]
+        if team2 not in teams:
+            teams.append(team2)
+
+    teams = sorted(teams)
+    print("Teams for debugging similarity:")
+    for t in teams:
+        print("'", t, "'", sep="")
+    print("Total of", len(teams), "teams", sep=" ")
+
+    print("Teams:")
+    for t in teams:
+        print(t)
 
 
 if __name__ == "__main__":
-	readMatches(matchesFile)
+    readMatches(matchesFile)

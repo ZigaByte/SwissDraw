@@ -1,16 +1,16 @@
-from swiss import Swiss	
+from swiss import Swiss
 from reader import generate
 from reader import getTeamName
 from round_generator import generatePairs
-	
-teamsFile = "teams.csv"
-roundsFile = "round2.csv"
+
+teamsFile = "wul/WUL_teams.csv"
+roundsFile = "wul/WUL_1.csv"
 
 def name(i):
 	return getTeamName(teamsFile, i)
 
 # To naj bo zadnja ekipa, ki še ni počivala
-teamWithNoRound = 16
+teamWithNoRound = 0
 
 A, Q, d, n = generate(teamsFile, roundsFile)
 
@@ -19,10 +19,10 @@ swiss = Swiss(A, d, n)
 s = swiss.getScores()
 
 # Generate Leaderboard
-leaderboard = sorted([(name(i), i, si) for i, si in enumerate(s)], key = lambda x: -x[2]) 
+leaderboard = sorted([(name(i), i, si) for i, si in enumerate(s)], key = lambda x: -x[2])
 for i, (teamName, team_index, score) in enumerate(leaderboard):
-	print(i, teamName, score)
-	
+	print(i+1, teamName, score, sep="\t")
+
 print("--------------------------------")
 
 # Izpis za lestvico
