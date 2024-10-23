@@ -21,13 +21,13 @@ def readMatches(matchesFile,teams):
 	
 	matches = []
 	queued = []
-	for m in reader:
-		if(m[2] == "" and m[3] == ""):
-			queued.append((teams[m[0]], teams[m[1]]))
+	for line in reader:
+		if(line[3] == "" and line[4] == ""):
+			queued.append((teams[line[3]], teams[line[4]]))
 		else:
-			matches.append((teams[m[0]], teams[m[1]], float(m[2]), float(m[3])))
+			matches.append((teams[line[3]], teams[line[4]], float(line[5]), float(line[6])))
 	
-	return (queued,matches)
+	return (queued, matches)
 	
 def generateA(matches, teams):
 	n = len(teams)
@@ -53,8 +53,8 @@ def generate(teamsFile, matchesFile):
 	teams = readTeams(teamsFile)
 	queued, matches = readMatches(matchesFile,teams)
 	
-	return (generateA(matches, teams),generateA(queued, teams), generateD(matches), len(teams))
+	return (generateA(matches, teams), generateA(queued, teams), generateD(matches), len(teams))
 
 def getTeamName(teamsFile, i):
-	teams = invertTeams(teamsFile);
+	teams = invertTeams(teamsFile)
 	return teams[i]
