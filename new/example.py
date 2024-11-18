@@ -4,7 +4,7 @@ from reader import getTeamName
 from round_generator import generatePairs
 
 teamsFile = "wul/WUL_teams.csv"
-roundsFile = "wul/WUL_1.csv"
+roundsFile = "wul/WUL_2.csv"
 
 def name(i):
 	return getTeamName(teamsFile, i)
